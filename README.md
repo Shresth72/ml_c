@@ -1,1 +1,1 @@
-# ml_c
+# Machine Learning in C
