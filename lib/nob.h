@@ -1163,15 +1163,19 @@ void nob_log(Nob_Log_Level level, const char *fmt, ...) {
   if (level < nob_minimal_log_level)
     return;
 
+  const char *color_reset = "\x1b[0m";
+  const char *color_red = "\x1b[31m";
+  const char *color_yellow = "\x1b[33m";
+
   switch (level) {
   case NOB_INFO:
     fprintf(stderr, "[INFO] ");
     break;
   case NOB_WARNING:
-    fprintf(stderr, "[WARNING] ");
+    fprintf(stderr, "%s[WARNING] %s", color_yellow, color_reset);
     break;
   case NOB_ERROR:
-    fprintf(stderr, "[ERROR] ");
+    fprintf(stderr, "%s[ERROR] %s", color_red, color_reset);
     break;
   case NOB_NO_LOGS:
     return;

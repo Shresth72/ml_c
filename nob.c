@@ -37,11 +37,8 @@ int main(int argc, char *argv[]) {
     cmd_append(&cmd, "./main");
     if (!cmd_run_sync_and_reset(&cmd))
       return 1;
-
-  } else if (strcmp(command_name, "do") == 0) {
-    cmd_append(&cmd, "./main", "do");
-    if (!cmd_run_sync_and_reset(&cmd))
-      return 1;
+  } else {
+    nob_log(ERROR, "Invalid command");
   }
 
   return 0;
