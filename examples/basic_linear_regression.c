@@ -1,3 +1,8 @@
+/*
+ * This is a basic single perceptron
+ * with a single parameter and a bias
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

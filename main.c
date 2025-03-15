@@ -1,16 +1,42 @@
+/*
+ * This is a single perceptron
+ * with two parameters and a bias
+ *
+ * Can model OR, AND, NAND
+ *
+ * XOR can be modelled using
+ * - (x | y) & ~(x & y) => AND(OR, NAND)
+ */
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
+typedef float sample[3];
+
 // OR Gate
-float train[][3] = {
+float or_train[][3] = {
     {0, 0, 0},
     {1, 0, 1},
-    {1, 1, 1},
     {0, 1, 1},
+    {1, 1, 1},
 };
-#define train_count (sizeof(train) / sizeof(train[0]))
+float and_train[][3] = {
+    {0, 0, 0},
+    {1, 0, 0},
+    {0, 1, 0},
+    {1, 1, 1},
+};
+float nand_train[][3] = {
+    {0, 0, 1},
+    {1, 0, 1},
+    {0, 1, 1},
+    {1, 1, 0},
+};
+
+sample *train = and_train;
+size_t train_count = 4;
 
 float sigmoidf(float x) { return 1.f / (1.f + expf(-x)); }
 float rand_float(void) { return (float)rand() / (float)RAND_MAX; }
@@ -40,7 +66,7 @@ int main() {
 
   printf("w1 = %f, w2 = %f\n", w1, w2);
 
-  for (int i = 0; i < 10000; ++i) {
+  for (int i = 0; i < 100000; ++i) {
     c = cost(w1, w2, b);
     float dw1 = (cost(w1 + eps, w2, b) - c) / eps;
     float dw2 = (cost(w1, w2 + eps, b) - c) / eps;
